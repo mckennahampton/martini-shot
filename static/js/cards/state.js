@@ -61,3 +61,7 @@ export function resetCards() {
 export function areAnyUnused() {
     return state.cards.some(card => !card.used)
 }
+
+export function isFinalCard() {
+    return state.cards.filter(card => !card.used).length == 1
+}

@@ -1,7 +1,17 @@
 import modalCard from './cards/templates/modalCard.js'
 import spinnerCards from './cards/templates/spinnerCards.js'
 import categoryCards from './cards/templates/categoryCards.js'
-import { getAllCards, getUnused, getRandomUnsedCard, setUnused, setIsSpinning, getIsSpinning, resetCards, areAnyUnused } from './cards/state.js';
+import {
+    getAllCards,
+    getUnused,
+    getRandomUnsedCard,
+    setUnused,
+    setIsSpinning,
+    getIsSpinning,
+    resetCards,
+    areAnyUnused,
+    isFinalCard
+} from './cards/state.js';
 
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -57,11 +67,8 @@ function getStyle(oElm, strCssRule){
 }
 
 const resetSpinnerOffset = () => {
-    // Offset spinner to center
     const cardWidth = document.querySelector('#spinnerCon .spinner-item').clientWidth
     const innerSpinnerCon = document.querySelector('#spinnerCon .spinner-category-inner-con')
-
-    // const dividerWidth = document.querySelector('#spinnerCon .divider').clientWidth
     const offsetLeft = (window.innerWidth / 2) - ((cardWidth /* + dividerWidth */) * 2) - ((cardWidth /* + dividerWidth */) / 2) + (Math.round(getStyle(innerSpinnerCon, 'padding-right')) / 2)
     document.querySelector('#spinnerCon').style.marginLeft = offsetLeft + 'px'
 }
@@ -99,18 +106,27 @@ const closeModal = () => {
 
 const spinWheel = () => {
     setIsSpinning(true)
-    const duration = 4
+    let duration = 4
     let selection = getRandomUnsedCard()
     let position = getAllCards().indexOf(selection)
     const spinner = document.querySelector('#spinnerCon')
     const cardWidth = spinner.querySelector('.spinner-item').clientWidth
     const innerSpinnerCon = document.querySelector('#spinnerCon .spinner-category-inner-con')
-    // const dividerWidth = spinner.querySelector('.divider').clientWidth
-    const landingPosition =
-        (position + getAllCards().length) // Handles selected indexes including 0, for example if the selected card is at 0 and the overall length is 4, the position is 5
-        * (cardWidth /* + dividerWidth */) // Multiplier for the card + divider DOM width for transition
-        + ((cardWidth /* + dividerWidth */) * getAllCards().length * 3) // How many "rotations" we want to animate through
-        + ((cardWidth /* + dividerWidth */) * 2) // Offset to account for the initial 2nd card centering
+    let landingPosition = 0
+    if (isFinalCard()) {
+        landingPosition =
+            (position + getAllCards().length) // Handles selected indexes including 0, for example if the selected card is at 0 and the overall length is 4, the position is 5
+            * cardWidth // Multiplier for the card + divider DOM width for transition
+            + (cardWidth * 2) // Offset to account for the initial 2nd card centering
+        duration = 2
+    }
+    else {
+        landingPosition =
+            (position + getAllCards().length) // Handles selected indexes including 0, for example if the selected card is at 0 and the overall length is 4, the position is 5
+            * cardWidth // Multiplier for the card + divider DOM width for transition
+            + (cardWidth * getAllCards().length * 3) // How many "rotations" we want to animate through
+            + (cardWidth * 2) // Offset to account for the initial 2nd card centering
+    }
     
     resetSpinnerOffset()
     setUnused(selection)
@@ -123,7 +139,12 @@ const spinWheel = () => {
         spinner.style.transitionTimingFunction = ''
         spinner.style.transitionDuration = ''
       
-        const offsetLeft = (window.innerWidth / 2) - (cardWidth * (position + getAllCards().length)) - ((cardWidth /* + dividerWidth */) / 2) + (Math.round(getStyle(innerSpinnerCon, 'padding-right')) / 2)
+        // After the spinning animation ends, set the spinner to an iteration of the card closer to the beginning to allow for another spin
+        const offsetLeft =
+            (window.innerWidth / 2)
+            - (cardWidth * (position + getAllCards().length))
+            - (cardWidth / 2) + (Math.round(getStyle(innerSpinnerCon, 'padding-right')) / 2)
+            
         spinner.style.marginLeft = offsetLeft + 'px'
         spinner.style.transform = 'none'
 
