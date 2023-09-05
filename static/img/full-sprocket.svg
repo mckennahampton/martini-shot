@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 788.48 33">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0b2029;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Spinner_Full" data-name="Spinner Full">
+    <rect class="cls-1" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="63.48" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="126.96" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="190.44" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="253.91" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="317.39" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="380.87" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="444.35" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="507.83" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="571.31" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="634.79" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="698.26" width="26.74" height="33" rx="6" ry="6"/>
+    <rect class="cls-1" x="761.74" width="26.74" height="33" rx="6" ry="6"/>
+  </g>
+</svg>
